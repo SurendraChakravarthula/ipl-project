@@ -13,5 +13,12 @@ public class Main {
         } catch(FileNotFoundException f) {
             f.printStackTrace();
         }
+
+
+        Scenarios sc=new Scenarios();
+        sc.frequencyCount(1);          //scenario 1
+        sc.frequencyCount(10);         //scenario 2
+
+
     }
 }
