@@ -92,4 +92,34 @@ public class Scenarios {
 
         System.out.println();
     }
+
+    void economyRate(int[] match)
+    {
+        HashMap<String, Integer> runs = new HashMap<>();
+        HashMap<String, Double> balls = new HashMap<>();
+        fillMaps(match,runs,balls);
+        HashMap<String, Double> solution = new HashMap<>();
+
+       for (Map.Entry<String, Integer> entry : runs.entrySet()) {
+            String bowler=entry.getKey();
+           solution.put(bowler,runs.get(bowler)/(balls.get(bowler)/6));
+        }
+
+        for (Map.Entry<String, Double> entry : solution.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+    }
+    void fillMaps(int[] match,HashMap<String, Integer> runs,HashMap<String, Double> balls) {
+
+
+        for (int i = match[0]; i <= match[1]; i++) {
+
+            String input = Main.fileDeliveries.get(i)[8];
+            int concededRuns = Integer.parseInt(Main.fileDeliveries.get(i)[10]) + Integer.parseInt(Main.fileDeliveries.get(i)[13]) + Integer.parseInt(Main.fileDeliveries.get(i)[15]);
+            if(Main.fileDeliveries.get(i)[10].equals("0") && Main.fileDeliveries.get(i)[13].equals("0"))
+                balls.put(input,balls.getOrDefault(input,(double)0)+1);
+            runs.put(input,runs.getOrDefault(input,0)+concededRuns);
+        }
+    }
 }

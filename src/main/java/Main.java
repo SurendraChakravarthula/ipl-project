@@ -19,7 +19,11 @@ public class Main {
         sc.frequencyCount(1);          //scenario 1
         sc.frequencyCount(10);         //scenario 2
 
-        sc.extraRunsPerTeamInYear(sc.startAndEndIndex(fileMatches,1,"2016"),3);
+        sc.extraRunsPerTeamInYear(sc.startAndEndIndex(fileMatches,1,"2016"),3); //scenario 3
+
+        sc.economyRate(sc.startAndEndIndex(fileMatches,1,"2015"));                   //scenario 4
+
+
 
     }
 }
