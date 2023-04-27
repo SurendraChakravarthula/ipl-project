@@ -20,7 +20,7 @@ public class Scenarios {
     }
 
 
-    int[] startAndEndIndex(List<String[]> data, int n, String year) {
+    int[] startAndEndMatchID(List<String[]> data, int n, String year) {
         int[] match = new int[2];
         for (int i = 1; i < lenMatches - 1; i++) {
             if (data.get(i)[n].equals(year) && !data.get(i - 1)[n].equals(year)) {
@@ -35,7 +35,12 @@ public class Scenarios {
             match[1] = lenMatches - 1;
         }
 
+        return match;
 
+    }
+
+    int[] startAndEndIndexDeliveries(int[] match)
+    {
         int start = binarySearch(Main.fileDeliveries, match[0], 0);
         String str = Integer.toString(match[0]);
 
@@ -55,8 +60,8 @@ public class Scenarios {
             end++;
 
         match[1] = --end;
-        return match;
 
+        return match;
     }
 
     int binarySearch(List<String[]> data, int target, int n) {
