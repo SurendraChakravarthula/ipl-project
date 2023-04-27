@@ -14,16 +14,18 @@ public class Main {
             f.printStackTrace();
         }
 
+        int lenFileMatches=fileMatches.size();
 
         Scenarios sc=new Scenarios();
-        sc.frequencyCount(1);          //scenario 1
-        sc.frequencyCount(10);         //scenario 2
+        sc.frequencyCount(1,1,lenFileMatches);          //scenario 1
+        sc.frequencyCount(10,1,lenFileMatches);         //scenario 2
 
         sc.extraRunsPerTeamInYear(sc.startAndEndIndexDeliveries(sc.startAndEndMatchID(fileMatches,1,"2016")),3); //scenario 3
 
         sc.economyRate(sc.startAndEndIndexDeliveries(sc.startAndEndMatchID(fileMatches,1,"2015")));                   //scenario 4
 
 
+       sc.ownScenario(1,"2017");
 
     }
 }

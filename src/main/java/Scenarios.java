@@ -4,9 +4,9 @@ public class Scenarios {
     int lenMatches = Main.fileMatches.size();
     int lenDeliveries = Main.fileDeliveries.size();
 
-    void frequencyCount(int n) {
+    void frequencyCount(int n,int start,int end) {
      HashMap<String,Integer> solution =new HashMap<>();
-        for (int i = 1; i < lenMatches; i++) {
+        for (int i = start; i < end; i++) {
             String input = Main.fileMatches.get(i)[n];
             if (!input.equals("")) {
                 solution.put(input, solution.getOrDefault(input, 0) + 1);
@@ -146,6 +146,14 @@ public class Scenarios {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
+    }
+
+    void ownScenario(int n,String year)
+    {
+        //in particular year find the no of matches happened
+
+        int matchId[]=startAndEndMatchID(Main.fileMatches,n,year);
+        frequencyCount(n,matchId[0]-1,matchId[1]);
     }
 }
 
