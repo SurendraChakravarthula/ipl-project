@@ -159,7 +159,6 @@ public class Scenarios {
 
    void topPlayerOfTheMatch(String year)
     {
-
         HashMap<String,Integer> solution=new HashMap<>();
         int matchId[]=startAndEndMatchID(Main.fileMatches,1,year);
 
