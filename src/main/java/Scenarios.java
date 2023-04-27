@@ -4,8 +4,8 @@ public class Scenarios {
     int lenMatches = Main.fileMatches.size();
     int lenDeliveries = Main.fileDeliveries.size();
 
-    void frequencyCount(int n,int start,int end) {
-     HashMap<String,Integer> solution =new HashMap<>();
+    HashMap<String,Integer> frequencyCount(int n,int start,int end,HashMap<String,Integer> solution) {
+
         for (int i = start; i < end; i++) {
             String input = Main.fileMatches.get(i)[n];
             if (!input.equals("")) {
@@ -13,27 +13,37 @@ public class Scenarios {
             }
         }
 
-        for (Map.Entry<String, Integer> entry : solution.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
-        System.out.println();
+        return solution;
     }
 
 
-    int[] startAndEndMatchID(List<String[]> data, int n, String year) {
+    int[] startAndEndMatchID(List<String[]> data, int n, String year){
         int[] match = new int[2];
+        boolean checkError =false;
         for (int i = 1; i < lenMatches - 1; i++) {
             if (data.get(i)[n].equals(year) && !data.get(i - 1)[n].equals(year)) {
                 match[0] = i;
+                checkError=true;
             } else if (data.get(i)[n].equals(year) && !data.get(i + 1)[n].equals(year)) {
                 match[1] = i;
                 break;
             }
         }
 
+        try {
+            if (!checkError) {
+
+                throw new YearNotFoundException();
+            }
+        }catch(YearNotFoundException e)
+        {
+            e.printStackTrace();
+            return new int[]{1,0};
+        }
         if (match[1] == 0) {
             match[1] = lenMatches - 1;
         }
+
 
         return match;
 
@@ -116,7 +126,6 @@ public class Scenarios {
     }
     void fillMaps(int[] match,HashMap<String, Integer> runs,HashMap<String, Double> balls) {
 
-
         for (int i = match[0]; i <= match[1]; i++) {
 
             String input = Main.fileDeliveries.get(i)[8];
@@ -131,7 +140,7 @@ public class Scenarios {
     {
 
         List<Map.Entry<String, Double> > list =
-                new LinkedList<Map.Entry<String, Double> >(hm.entrySet());
+                new LinkedList<>(hm.entrySet());
 
         Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
             public int compare(Map.Entry<String, Double> o1,
@@ -148,12 +157,30 @@ public class Scenarios {
         return temp;
     }
 
-    void ownScenario(int n,String year)
+   void topPlayerOfTheMatch(String year)
     {
-        //in particular year find the no of matches happened
 
-        int matchId[]=startAndEndMatchID(Main.fileMatches,n,year);
-        frequencyCount(n,matchId[0]-1,matchId[1]);
+        HashMap<String,Integer> solution=new HashMap<>();
+        int matchId[]=startAndEndMatchID(Main.fileMatches,1,year);
+
+        matchId[0]=matchId[0]==1?1:matchId[0]-1;
+        frequencyCount(13,matchId[0],matchId[1],solution);
+        System.out.println(maxInMap(solution));
+    }
+
+    String maxInMap(HashMap<String,Integer> hashMap)
+    {
+        int max=Integer.MIN_VALUE;
+        String res="";
+        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+            int value=entry.getValue();
+            String key=entry.getKey();
+            if(max<value) {
+                max =value;
+                res=key;
+            }
+        }
+        return res;
     }
 }
 

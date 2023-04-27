@@ -1,6 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 public class Main {
     static List<String[]> fileMatches,fileDeliveries;
     public static void main(String[] args) {
@@ -17,15 +20,22 @@ public class Main {
         int lenFileMatches=fileMatches.size();
 
         Scenarios sc=new Scenarios();
-        sc.frequencyCount(1,1,lenFileMatches);          //scenario 1
-        sc.frequencyCount(10,1,lenFileMatches);         //scenario 2
+      // print(sc.frequencyCount(1,1,lenFileMatches));          //scenario 1
+      //  print(sc.frequencyCount(10,1,lenFileMatches));         //scenario 2
 
-        sc.extraRunsPerTeamInYear(sc.startAndEndIndexDeliveries(sc.startAndEndMatchID(fileMatches,1,"2016")),3); //scenario 3
+      //  sc.extraRunsPerTeamInYear(sc.startAndEndIndexDeliveries(sc.startAndEndMatchID(fileMatches,1,"2016")),3); //scenario 3
 
-        sc.economyRate(sc.startAndEndIndexDeliveries(sc.startAndEndMatchID(fileMatches,1,"2015")));                   //scenario 4
+        //sc.economyRate(sc.startAndEndIndexDeliveries(sc.startAndEndMatchID(fileMatches,1,"2015")));                   //scenario 4
 
+        sc.topPlayerOfTheMatch("2019");
 
-       sc.ownScenario(1,"2017");
+    }
 
+    static void print(HashMap<String,Integer> solution)
+    {
+        for (Map.Entry<String, Integer> entry : solution.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        System.out.println();
     }
 }
