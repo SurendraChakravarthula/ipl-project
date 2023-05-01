@@ -1,7 +1,6 @@
 package com.surendra.java;
 
 import com.opencsv.CSVReader;
-import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.FileReader;
 import java.util.*;
@@ -30,26 +29,21 @@ public class Main {
     private final int TWENTY =20;
 
     public static void main(String[] args) {
-        StopWatch s=new StopWatch();
-        s.start();
-
         Main main=new Main();
 
-        //Parse CSV files and store them in list of objects
         List<Matches> matches=main.parseMatches(new ArrayList<>());
         List<Deliveries> deliveries=main.parseDeliveries(new ArrayList<>());
 
         final int lengthOfMatches=matches.size();
         final int lengthOfDeliveries=deliveries.size();
 
-        //Scenario-1: Number of matches played per year of all the years in IPL.
         HashMap<Integer,Integer> numberOfMatchesPlayedPerYear=new HashMap<>();
         main.getNumberOfMatchesPlayedPerYear(lengthOfMatches,matches,numberOfMatchesPlayedPerYear);
 
-        //Scenario-2: Number of matches won of all teams over all the years of IPL.
         main.getNumberOfMatchesWonPerTeam(lengthOfMatches,matches);
 
         int year=2015;
+
         try {
             if (!numberOfMatchesPlayedPerYear.containsKey(year))
                 throw new YearNotFoundException();
@@ -62,21 +56,11 @@ public class Main {
        int startAndEndMatchIdsOfGivenYear[]=main.getStartAndEndMatchIdsOfGivenYear(matches,year,lengthOfMatches);
        int startAndEndIndicesOfDeliveriesForMatchIds[]= main.getStartAndEndIndicesOfDeliveriesForMatchIds(deliveries,startAndEndMatchIdsOfGivenYear,lengthOfDeliveries);
 
-       //Scenario-3: For the year 2016 get the extra runs conceded per team.
         main.getConcededRunsPerTeamForGivenIndices(deliveries,startAndEndIndicesOfDeliveriesForMatchIds);
-
-        //Scenario-3: For the year 2015 get the top economical bowlers.
         HashMap<String,Float> economyRatePerBowler =main.getEconomyRatePerBowler(deliveries,startAndEndIndicesOfDeliveriesForMatchIds,new HashMap<>());
-
-        //Scenario-4: For the year 2015 get the top economical bowlers.
         main.sortBowlersByEconomyRate(economyRatePerBowler);
-
-        //Scenario-5: Player who got the title player of the match most in a 2015
         main.getTopPlayerOfTheMatchInGivenYear(matches,year,lengthOfMatches);
-
-        s.stop();
-        System.out.println(s.getTime());
-
+        main.getTopBatsManInGivenYearPerVenue(deliveries,startAndEndIndicesOfDeliveriesForMatchIds,startAndEndMatchIdsOfGivenYear,matches);
     }
 
     List<Matches> parseMatches(List<Matches> matches)
@@ -94,7 +78,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return matches;
     }
 
@@ -113,8 +96,6 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
                 return deliveries;
     }
 
@@ -124,6 +105,7 @@ public class Main {
             int year = matches.get(i).getSeason();
                 numberOfMatchesPlayedPerYear.put(year, numberOfMatchesPlayedPerYear.getOrDefault(year, 0) + ONE);
         }
+        System.out.println("Number of matches played per year of all the years in IPL:");
         printData(numberOfMatchesPlayedPerYear);
        return numberOfMatchesPlayedPerYear;
     }
@@ -137,12 +119,12 @@ public class Main {
             if(!winner.equals(""))
             numberOfMatchesWonPerTeam.put(winner, numberOfMatchesWonPerTeam.getOrDefault(winner, 0) + 1);
         }
+        System.out.println("Number of matches won of all teams over all the years of IPL:");
         printData(numberOfMatchesWonPerTeam);
     }
 
     int[] getStartAndEndMatchIdsOfGivenYear(List<Matches> matches, int year, int lengthOfMatches){
         int[] matchIdsForGivenYear = new int[TWO];
-
         for (int i = ZERO; i < lengthOfMatches - ONE; i++) {
             if (matches.get(i).getSeason()==year) {
                 matchIdsForGivenYear[ZERO] = i+1;
@@ -176,17 +158,18 @@ public class Main {
     {
         int start = searchIndexForMatchId(deliveries, matchIdForGivenYear[ZERO], lengthOfDeliveries);
 
+        int[] matchIndicesForGivenYearInDeliveries=new int[TWO];
         while (start>-1 && deliveries.get(start).getMatch_id()==matchIdForGivenYear[ZERO])
             start--;
-        matchIdForGivenYear[ZERO] = ++start;
+        matchIndicesForGivenYearInDeliveries[ZERO] = ++start;
 
         int end = searchIndexForMatchId(deliveries, matchIdForGivenYear[ONE], lengthOfDeliveries);
 
         while (end<lengthOfDeliveries && deliveries.get(end).getMatch_id()==matchIdForGivenYear[ONE])
             end++;
-        matchIdForGivenYear[ONE] = end;
+        matchIndicesForGivenYearInDeliveries[ONE] = end;
 
-        return matchIdForGivenYear;
+        return matchIndicesForGivenYearInDeliveries;
     }
 
     void getConcededRunsPerTeamForGivenIndices(List<Deliveries> deliveries, int[] startAndEndIndicesOfDeliveriesForMatchIds) {
@@ -196,7 +179,7 @@ public class Main {
             String input = deliveries.get(i).getBowling_team();
             concededRunsPerTeamForGivenIndices.put(input, concededRunsPerTeamForGivenIndices.getOrDefault(input, ZERO) + deliveries.get(i).getExtra_runs());
         }
-
+        System.out.println("For the given year get the extra runs conceded per team:");
        printData(concededRunsPerTeamForGivenIndices);
         System.out.println();
     }
@@ -228,7 +211,6 @@ public class Main {
             }
         }
 
-
         for (Map.Entry<String,Pair> entry : runsGivenAndBallsThrownByEveryBowler.entrySet()) {
             Pair pair=entry.getValue();
           economyRatePerBowler.put(entry.getKey(),pair.getRunsGiven()/(pair.getBallsThrown()/6));
@@ -238,7 +220,6 @@ public class Main {
 
     void sortBowlersByEconomyRate(HashMap<String, Float> economyRate)
     {
-
         List<Map.Entry<String, Float> > list =
                 new LinkedList<>(economyRate.entrySet());
 
@@ -253,9 +234,16 @@ public class Main {
         for (Map.Entry<String, Float> aa : list) {
             sortedEconomyRateForEveryBowler.put(aa.getKey(), aa.getValue());
         }
+        System.out.println("For the given year get the top economical bowlers:");
 
-        printData(sortedEconomyRateForEveryBowler);
-
+        int count=0;
+        for (Map.Entry<String,Float> entry : sortedEconomyRateForEveryBowler.entrySet()) {
+            System.out.println(entry.getKey() + "         :      " + entry.getValue());
+            count++;
+            if(count==5)
+                break;
+        }
+        System.out.println();
     }
 
     void getTopPlayerOfTheMatchInGivenYear(List<Matches> matches, int year,int lengthOfMatches)
@@ -267,14 +255,16 @@ public class Main {
             String player=matches.get(i).getPlayer_of_match();
             numberOfTitlesPerPlayer.put(player, numberOfTitlesPerPlayer.getOrDefault(player, 0) + 1);
         }
-
+        System.out.println("Player with most titles with player of the match in given year:");
         System.out.println(getPlayerWithMostTitles(numberOfTitlesPerPlayer));
+        System.out.println();
     }
 
     String getPlayerWithMostTitles(HashMap<String,Integer> hashMap)
     {
         int maximumTitles=Integer.MIN_VALUE;
         String player="";
+
         for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
             int value=entry.getValue();
             String key=entry.getKey();
@@ -292,5 +282,62 @@ public class Main {
             System.out.println(entry.getKey() + "         :       " + entry.getValue());
         }
         System.out.println();
+    }
+
+    void getTopBatsManInGivenYearPerVenue(List<Deliveries> deliveries, int[] indicesOfDeliveriesForGivenYear, int[] matchIdsOfMatchesForGivenYear, List<Matches> matches)
+    {
+
+        HashMap<HashMap<String,String>,Integer> playersWithMaxScoreInGivenYear=new HashMap<>();
+
+        int j=indicesOfDeliveriesForGivenYear[ZERO]+1;
+        for(int i=matchIdsOfMatchesForGivenYear[ZERO];i<=matchIdsOfMatchesForGivenYear[ONE];i+=1)
+        {
+           for(;j<indicesOfDeliveriesForGivenYear[1] && deliveries.get(j).getMatch_id()==i;j++) {
+               HashMap<String, String> cityAndPlayer = new HashMap<>();
+               cityAndPlayer.put(matches.get(i-1).getVenue(), deliveries.get(j).getBatsman());
+
+               int batsman_Runs = (int) deliveries.get(j).getBatsman_runs();
+
+               if (playersWithMaxScoreInGivenYear.containsKey(cityAndPlayer)) {
+                   batsman_Runs += playersWithMaxScoreInGivenYear.get(cityAndPlayer);
+                   playersWithMaxScoreInGivenYear.put(cityAndPlayer, batsman_Runs);
+               } else {
+                   playersWithMaxScoreInGivenYear.put(cityAndPlayer, batsman_Runs);
+               }
+           }
+        }
+        System.out.println("Batsman with most runs in every stadium for given year:");
+      getPlayersWithMaxRunsPerStadium(playersWithMaxScoreInGivenYear);
+    }
+
+    void getPlayersWithMaxRunsPerStadium(HashMap<HashMap<String,String>,Integer> playersWithMaxScoreInGivenYear)
+    {
+        HashMap<String,HashMap<String,Integer>> playersWithMaxRunsPerStadium=new HashMap<>();
+
+        for (Map.Entry<HashMap<String, String>,Integer> entry : playersWithMaxScoreInGivenYear.entrySet()) {
+           for(Map.Entry<String,String> secondEntry: entry.getKey().entrySet())
+           {
+               String venue=secondEntry.getKey();
+               String batsMan=secondEntry.getValue();
+               Integer maxRuns=entry.getValue();
+               HashMap<String,Integer> batsManAndHisRuns=new HashMap<>();
+
+               if(playersWithMaxRunsPerStadium.containsKey(venue)) {
+                 for(Map.Entry<String,Integer> thirdEntry :playersWithMaxRunsPerStadium.get(venue).entrySet())
+                 {
+                     Integer runs=thirdEntry.getValue();
+                     if(runs<maxRuns)
+                     {
+                         batsManAndHisRuns.put(batsMan,maxRuns);
+                         playersWithMaxRunsPerStadium.put(venue,batsManAndHisRuns);
+                     }
+                 }
+               }else{
+                   batsManAndHisRuns.put(batsMan,maxRuns);
+                   playersWithMaxRunsPerStadium.put(venue,batsManAndHisRuns);
+               }
+           }
+        }
+        printData(playersWithMaxRunsPerStadium);
     }
 }
