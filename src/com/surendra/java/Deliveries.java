@@ -23,28 +23,87 @@ public class Deliveries {
     private String dismissal_kind;
     private String fielder;
 
-    public Deliveries(int match_id, int inning, String batting_team, String bowling_team, int over, int ball, String batsman, String non_striker, String bowler, int its_super_over, float wide_runs, int bye_runs,
-                      int legbye_runs, float noball_runs, int penalty_runs, float batsman_runs, int extra_runs, int total_runs, String player_dismissed, String dismissal_kind, String fielder) {
+    public void setMatch_id(int match_id) {
         this.match_id = match_id;
+    }
+
+    public void setInning(int inning) {
         this.inning = inning;
+    }
+
+    public void setBatting_team(String batting_team) {
         this.batting_team = batting_team;
+    }
+
+    public void setBowling_team(String bowling_team) {
         this.bowling_team = bowling_team;
+    }
+
+    public void setOver(int over) {
         this.over = over;
+    }
+
+    public void setBall(int ball) {
         this.ball = ball;
+    }
+
+    public void setBatsman(String batsman) {
         this.batsman = batsman;
+    }
+
+    public void setNon_striker(String non_striker) {
         this.non_striker = non_striker;
+    }
+
+    public void setBowler(String bowler) {
         this.bowler = bowler;
+    }
+
+    public void setIts_super_over(int its_super_over) {
         this.its_super_over = its_super_over;
+    }
+
+    public void setWide_runs(float wide_runs) {
         this.wide_runs = wide_runs;
+    }
+
+    public void setBye_runs(int bye_runs) {
         this.bye_runs = bye_runs;
+    }
+
+    public void setLegbye_runs(int legbye_runs) {
         this.legbye_runs = legbye_runs;
+    }
+
+    public void setNoball_runs(float noball_runs) {
         this.noball_runs = noball_runs;
+    }
+
+    public void setPenalty_runs(int penalty_runs) {
         this.penalty_runs = penalty_runs;
+    }
+
+    public void setBatsman_runs(float batsman_runs) {
         this.batsman_runs = batsman_runs;
+    }
+
+    public void setExtra_runs(int extra_runs) {
         this.extra_runs = extra_runs;
+    }
+
+    public void setTotal_runs(int total_runs) {
         this.total_runs = total_runs;
+    }
+
+    public void setPlayer_dismissed(String player_dismissed) {
         this.player_dismissed = player_dismissed;
+    }
+
+    public void setDismissal_kind(String dismissal_kind) {
         this.dismissal_kind = dismissal_kind;
+    }
+
+    public void setFielder(String fielder) {
         this.fielder = fielder;
     }
 
