@@ -59,20 +59,22 @@ public class Main {
         final int lengthOfDeliveries = deliveries.size();
 
         HashMap<Integer, Integer> numberOfMatchesPlayedPerYear = new HashMap<>();
-        main.getNumberOfMatchesPlayedPerYear(lengthOfMatches, matches, numberOfMatchesPlayedPerYear);
+        main.getNumberOfMatchesPlayedPerYear(matches, numberOfMatchesPlayedPerYear);
 
-        main.getNumberOfMatchesWonPerTeam(lengthOfMatches, matches);
+        main.getNumberOfMatchesWonPerTeam(matches);
 
-        int year = 2015;
+        int year = 2016;
+        int[] startAndEndMatchIdsOfYear2016 = main.getStartAndEndMatchIdsOfGivenYear(matches, year, lengthOfMatches);
+        int[] startAndEndIndicesOfDeliveriesForMatchIdsOf2016 = main.getStartAndEndIndicesOfDeliveriesForMatchIds(deliveries, startAndEndMatchIdsOfYear2016, lengthOfDeliveries);
+        main.getConcededRunsPerTeamForGivenIndices(deliveries, startAndEndIndicesOfDeliveriesForMatchIdsOf2016);
 
-        int startAndEndMatchIdsOfGivenYear[] = main.getStartAndEndMatchIdsOfGivenYear(matches, year, lengthOfMatches);
-        int startAndEndIndicesOfDeliveriesForMatchIds[] = main.getStartAndEndIndicesOfDeliveriesForMatchIds(deliveries, startAndEndMatchIdsOfGivenYear, lengthOfDeliveries);
-
-        main.getConcededRunsPerTeamForGivenIndices(deliveries, startAndEndIndicesOfDeliveriesForMatchIds);
-        HashMap<String, Float> economyRatePerBowler = main.getEconomyRatePerBowler(deliveries, startAndEndIndicesOfDeliveriesForMatchIds, new HashMap<>());
+        year = 2015;
+        int[] startAndEndMatchIdsOfYear2015 = main.getStartAndEndMatchIdsOfGivenYear(matches, year, lengthOfMatches);
+        int[] startAndEndIndicesOfDeliveriesForMatchIdsOf2015 = main.getStartAndEndIndicesOfDeliveriesForMatchIds(deliveries, startAndEndMatchIdsOfYear2015, lengthOfDeliveries);
+        HashMap<String, Float> economyRatePerBowler = main.getEconomyRatePerBowler(deliveries, startAndEndIndicesOfDeliveriesForMatchIdsOf2015, new HashMap<>());
         main.sortBowlersByEconomyRate(economyRatePerBowler);
         main.getTopPlayerOfTheMatchInGivenYear(matches, year, lengthOfMatches);
-        main.getTopBatsManInGivenYearPerVenue(deliveries, startAndEndIndicesOfDeliveriesForMatchIds, startAndEndMatchIdsOfGivenYear, matches);
+        main.getTopBatsManInGivenYearPerVenue(deliveries, startAndEndIndicesOfDeliveriesForMatchIdsOf2016, startAndEndMatchIdsOfYear2016, matches);
     }
 
     private List<Matches> parseMatches(List<Matches> matches) {
@@ -150,21 +152,20 @@ public class Main {
         return deliveries;
     }
 
-    private HashMap<Integer, Integer> getNumberOfMatchesPlayedPerYear(int lengthOfMatches, List<Matches> matches, HashMap<Integer, Integer> numberOfMatchesPlayedPerYear) {
-        for (int i = 0; i < lengthOfMatches; i++) {
-            int year = matches.get(i).getSeason();
+    private void getNumberOfMatchesPlayedPerYear(List<Matches> matches, HashMap<Integer, Integer> numberOfMatchesPlayedPerYear) {
+        for (Matches match : matches) {
+            int year = match.getSeason();
             numberOfMatchesPlayedPerYear.put(year, numberOfMatchesPlayedPerYear.getOrDefault(year, 0) + 1);
         }
         System.out.println("Number of matches played per year of all the years in IPL:");
         printData(numberOfMatchesPlayedPerYear);
-        return numberOfMatchesPlayedPerYear;
     }
 
-    private void getNumberOfMatchesWonPerTeam(int lengthOfMatches, List<Matches> matches) {
+    private void getNumberOfMatchesWonPerTeam(List<Matches> matches) {
         HashMap<String, Integer> numberOfMatchesWonPerTeam = new HashMap<>();
 
-        for (int i = 0; i < lengthOfMatches; i++) {
-            String winner = matches.get(i).getWinner();
+        for (Matches match : matches) {
+            String winner = match.getWinner();
             if (!winner.equals(""))
                 numberOfMatchesWonPerTeam.put(winner, numberOfMatchesWonPerTeam.getOrDefault(winner, 0) + 1);
         }
@@ -174,7 +175,7 @@ public class Main {
 
     private int[] getStartAndEndMatchIdsOfGivenYear(List<Matches> matches, int year, int lengthOfMatches) {
         int[] matchIdsForGivenYear = new int[2];
-        for (int i = 0; i < lengthOfMatches - 1; i++) {
+        for (int i = 0; i < lengthOfMatches; i++) {
             if (matches.get(i).getSeason() == year) {
                 matchIdsForGivenYear[START] = i + 1;
                 while (i < lengthOfMatches && matches.get(i).getSeason() == year)
@@ -227,7 +228,7 @@ public class Main {
             String input = deliveries.get(i).getBowling_team();
             concededRunsPerTeamForGivenIndices.put(input, concededRunsPerTeamForGivenIndices.getOrDefault(input, 0) + deliveries.get(i).getExtra_runs());
         }
-        System.out.println("For the given year get the extra runs conceded per team:");
+        System.out.println("Extra runs conceded per team in 2016:");
         printData(concededRunsPerTeamForGivenIndices);
         System.out.println();
     }
@@ -280,7 +281,7 @@ public class Main {
         for (Map.Entry<String, Float> aa : sortEconomyRateForEveryBowler) {
             sortedEconomyRateForEveryBowler.put(aa.getKey(), aa.getValue());
         }
-        System.out.println("For the given year get the top economical bowlers:");
+        System.out.println("Top economical bowlers in 2015:");
 
         int count = 0;
         for (Map.Entry<String, Float> entry : sortedEconomyRateForEveryBowler.entrySet()) {
@@ -294,7 +295,7 @@ public class Main {
 
     private void getTopPlayerOfTheMatchInGivenYear(List<Matches> matches, int year, int lengthOfMatches) {
         HashMap<String, Integer> numberOfTitlesPerPlayer = new HashMap<>();
-        int startAndEndMatchIdsOfGivenYear[] = getStartAndEndMatchIdsOfGivenYear(matches, year, lengthOfMatches);
+        int[] startAndEndMatchIdsOfGivenYear = getStartAndEndMatchIdsOfGivenYear(matches, year, lengthOfMatches);
 
         for (int i = startAndEndMatchIdsOfGivenYear[START] - 1; i < startAndEndMatchIdsOfGivenYear[END] - 1; i++) {
             String player = matches.get(i).getPlayer_of_match();
