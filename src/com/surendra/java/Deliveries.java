@@ -1,7 +1,7 @@
 package com.surendra.java;
 
 public class Deliveries {
-     private int match_id;
+    private int match_id;
     private int inning;
     private String batting_team;
     private String bowling_team;
