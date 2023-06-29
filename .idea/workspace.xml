@@ -5,33 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a263a2ec-0add-4ed6-98b3-425d5276222f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ipl_project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ipl_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ipl_project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/surendra/java/Deliveries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/surendra/java/Deliveries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/surendra/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/surendra/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/surendra/java/Matches.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/surendra/java/Matches.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/surendra/java/YearNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/surendra/java/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/surendra/java/Main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/surendra/java/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/surendra/java/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/surendra/resources/resources" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/com/surendra/resources/resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/resources/deliveries.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/resources/deliveries.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/resources/matches.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/resources/matches.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,14 +31,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
