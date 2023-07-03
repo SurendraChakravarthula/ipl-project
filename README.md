@@ -1,7 +1,7 @@
 # IPL_Project
 
 ### Description
-In this project, Data will be read from a raw CSV file and stored in a List of objects using openCSV library.
+In this project, Data will be read from a raw CSV files and stored as List of objects. Different scenarios are created and solved using java from the data.
 
 ### Scenario 1
 From stored data find the number of matches played per year of all the years in IPL.
